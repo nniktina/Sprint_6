@@ -1,7 +1,5 @@
 import pytest
 import random
-import pages.main_page
-import pages.order_page
 
 @pytest.fixture
 def name_fixture():

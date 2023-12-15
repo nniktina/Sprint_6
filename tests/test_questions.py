@@ -3,6 +3,7 @@ import locators.main_page_locators
 import data
 import pages.main_page
 import pytest
+import allure
 
 
 class TestQuestionsBlock:
@@ -13,6 +14,8 @@ class TestQuestionsBlock:
         cls.driver = webdriver.Firefox()
         cls.driver.maximize_window()
 
+    @allure.title('Проверка ответов на вопросы в блоке "Вопросы о важном"')  # декораторы
+    @allure.description('На главной странице проверяем ответ на каждый вопрос блока "Вопросы о важном" через параметризацию тестов')
     @pytest.mark.parametrize('question_locator, answer_locator, answer_text', [
                              [locators.main_page_locators.question_1, locators.main_page_locators.answer_1, data.answer_1_text],
                              [locators.main_page_locators.question_2, locators.main_page_locators.answer_2, data.answer_2_text],
