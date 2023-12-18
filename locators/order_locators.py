@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-order_for_whom_block = '.App_App__15LM-'
+order_for_whom_block = [By.CSS_SELECTOR, '.App_App__15LM-']
 
 name_field = [By.XPATH, './/input[@placeholder="* Имя"]']
 surname_field = [By.XPATH, './/input[@placeholder="* Фамилия"]']

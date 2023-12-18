@@ -1,18 +1,11 @@
-from selenium import webdriver
 import locators.main_page_locators
 import data
-import pages.main_page
 import pytest
 import allure
+from pages.main_page import MainPage
 
 
 class TestQuestionsBlock:
-    driver = None
-
-    @classmethod
-    def setup_class(cls):
-        cls.driver = webdriver.Firefox()
-        cls.driver.maximize_window()
 
     @allure.title('Проверка ответов на вопросы в блоке "Вопросы о важном"')  # декораторы
     @allure.description('На главной странице проверяем ответ на каждый вопрос блока "Вопросы о важном" через параметризацию тестов')
@@ -26,14 +19,9 @@ class TestQuestionsBlock:
                              [locators.main_page_locators.question_7, locators.main_page_locators.answer_7, data.answer_7_text],
                              [locators.main_page_locators.question_8, locators.main_page_locators.answer_8, data.answer_8_text],
                              ])
-    def test_answer(self, question_locator, answer_locator, answer_text):
-        self.driver.get(data.main_page_url)
-        question_block = pages.main_page.MainPage(self.driver)
-        question_block.wait_loading_homepage()
+    def test_answer(self, question_locator, answer_locator, answer_text, driver):
+        question_block = MainPage(driver)
+        question_block.go_main_page()
         question_block.load_and_click_question(question_locator)
         actual_answer = question_block.get_answer(answer_locator)
         assert actual_answer == answer_text
-
-    @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()
