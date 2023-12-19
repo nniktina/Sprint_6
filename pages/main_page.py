@@ -8,7 +8,8 @@ class MainPage(BasePage):
 
     @allure.step('Скролл до блока "Вопросы о важном"')
     def scroll_down_to_questions(self):
-        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        self.scroll_down()
+
     @allure.step('Клик на вопрос')
     def click_on_question(self, question_locator):
         self.click(question_locator)
@@ -22,7 +23,7 @@ class MainPage(BasePage):
     @allure.step('Получаем ответ')
     def get_answer(self, answer_locator):
         self.waiting(answer_locator)
-        text = self.driver.find_element(*answer_locator).text
+        text = self.find(answer_locator).text
         return text
 
     @allure.step('Клик на верхнюю кнопку "Заказать"')
@@ -31,8 +32,7 @@ class MainPage(BasePage):
 
     @allure.step('Скролл до нижней кнопки "Заказать"')
     def scroll_to_bottom_order_button(self):
-        element = self.driver.find_element(*locators.main_page_locators.bottom_order_button)
-        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+        self.scroll_to_element(locators.main_page_locators.bottom_order_button)
         self.waiting(locators.main_page_locators.bottom_order_button)
 
     @allure.step('Клик на нижнюю кнопку "Заказать"')

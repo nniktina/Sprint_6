@@ -1,4 +1,3 @@
-from selenium.webdriver.support.wait import WebDriverWait
 import data
 import locators.order_locators
 import locators.main_page_locators
@@ -60,9 +59,8 @@ class ScooterOrderPage(BasePage):
     @allure.step('Нажимаем на лого "Яндекс" в левом верхнем углу и переходим в открывшееся окно')
     def click_yandex_logo(self):
         self.click(locators.order_locators.yandex_logo)
-        WebDriverWait(self.driver, 5).until(lambda driver: len(driver.window_handles) > 1)
-        dzen_window = self.driver.window_handles[1]
-        self.driver.switch_to.window(dzen_window)
+        self.waiting_new_browser_tab()
+        self.switch_to_new_tab()
         self.waiting(locators.order_locators.dzen_page_widget)
 
     @allure.step('Нажимаем на лого "Самокат" в левом верхнем углу')
@@ -72,15 +70,15 @@ class ScooterOrderPage(BasePage):
 
     @allure.step('Ищем попап об успешном заказе самоката')
     def find_success_popup(self):
-        return self.driver.find_element(*locators.order_locators.success_order_info)
+        return self.find(locators.order_locators.success_order_info)
 
     @allure.step('Ищем блок "Для кого самокат" на странице заказа')
     def find_order_form(self):
-        return self.driver.find_element(*locators.order_locators.order_for_whom_block)
+        return self.find(locators.order_locators.order_for_whom_block)
 
     @allure.step('Получаем текущий url')
     def get_url(self):
-        return self.driver.current_url
+        return self.get_current_url()
 
 
 
